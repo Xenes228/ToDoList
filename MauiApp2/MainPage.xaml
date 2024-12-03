@@ -1,0 +1,23 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp2.MainPage">
+
+    <StackLayout Padding="10">
+        <Entry x:Name="NewTaskEntry" Placeholder="Введите новую задачу" Text="{Binding NewTaskText}"/>
+        <Button Text="Добавить" Command="{Binding AddCommand}" CommandParameter="{Binding Text, Source={x:Reference NewTaskEntry}}" />
+
+        <ListView ItemsSource="{Binding Items}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <CheckBox IsChecked="{Binding IsDone}" />
+                            <Label Text="{Binding Name}" VerticalOptions="Center" />
+                            <Button Text="Удалить" Command="{Binding Source={RelativeSource AncestorType={x:Type ListView}}, Path=BindingContext.RemoveCommand}" CommandParameter="{Binding .}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>
